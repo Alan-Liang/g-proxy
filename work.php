@@ -25,7 +25,9 @@ foreach ($_SERVER as $k => $v) {
 		if ($k == "Host")
 			$v = $host;						# Alter "Host" header to mirrored server
 		if ($k == "Accept-Encoding")
-			$v = "identity;q=1.0, *;q=0";		# Alter "Accept-Encoding" header to accept unencoded content only
+			$v = "identity;q=1.0, *;q=0";		# Alter "Accept-Encoding" header to accept unencoded content onl
+		if ($k == "Referrer")
+		    continue;
 		if ($k == "Keep-Alive")
 			continue;							# Drop "Keep-Alive" header
 		if ($k == "Connection" && $v == "keep-alive")
@@ -36,7 +38,7 @@ foreach ($_SERVER as $k => $v) {
 $body = @file_get_contents('php://input');
 $req .= "Content-Type: " . $_SERVER['CONTENT_TYPE'] . "\r\n";
 $req .= "Content-Length: " . strlen($body) . "\r\n";
-$req .= "Referer: " .  "https://www.google.com/\r\n";
+$req .= "Referrer: " .  "https://www.google.com/\r\n";
 $req .= "\r\n";
 $req .= $body;
 
